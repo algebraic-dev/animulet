@@ -7,6 +7,7 @@
   "scripts": {
     "dev": "ts-node-dev -r tsconfig-paths/register -r dotenv/config src/app.ts",
     "build": "tsc --project tsconfig.json",
+    "start": "node -r ts-node/register/transpile-only -r tsconfig-paths/register ./dist/src/app.js",
     "test": "jest test"
   },
   "dependencies": {
