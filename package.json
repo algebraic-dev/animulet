@@ -9,20 +9,6 @@
     "build": "tsc --project tsconfig.json",
     "test": "jest test"
   },
-  "jest": {
-    "preset": "ts-jest",
-    "testEnvironment": "node",
-    "transform": {
-      "node_modules/variables/.+\\.(j|t)sx?$": "ts-jest"
-    },
-    "transformIgnorePatterns": [
-      "node_modules/(?!variables/.*)"
-    ],
-    "moduleDirectories": [
-      "node_modules",
-      "src"
-    ]
-  },
   "dependencies": {
     "eslint-plugin-jest": "^24.5.0",
     "express": "^4.17.1",
