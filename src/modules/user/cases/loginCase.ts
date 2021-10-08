@@ -1,4 +1,5 @@
 import { Either } from 'fp-ts/Either'
+
 import { User } from '@user/models/user'
 import { LoginError } from './loginError'
 

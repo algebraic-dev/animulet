@@ -1,5 +1,6 @@
-import { User } from '@user/models/user'
 import { Either } from 'fp-ts/Either'
+
+import { User } from '@user/models/user'
 
 export const save = (user: User): Either<User, String> => {
   throw new Error('unimplemented')

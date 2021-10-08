@@ -10,4 +10,6 @@ export default () => {
   app.listen(process.env.PORT, () => {
     logger.info(`🚀 Server running at port ${process.env.PORT}`)
   })
+
+  return app
 }
