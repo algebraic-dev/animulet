@@ -1,6 +1,9 @@
 export interface User {
+  id?: string
   username: string
   password: string
   email: string
-  birthDate: Date
+  description?: string | null
+  birthDate?: Date | null
+  createdAt?: Date
 }
