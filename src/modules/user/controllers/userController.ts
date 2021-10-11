@@ -14,7 +14,6 @@ export const register = async (request: Request, response: Response) => {
   const user = await _register({ username, email, password })
 
   if (isLeft(user)) {
-    console.log(user.left)
     response.status(400).json({ error: user.left.kind })
   } else {
     response.status(201).json(user.right)
