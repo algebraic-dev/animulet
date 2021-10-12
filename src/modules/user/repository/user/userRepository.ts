@@ -1,19 +1,31 @@
-import { Either } from 'fp-ts/Either'
+import { PrismaClient } from '@prisma/client'
 
 import { User } from '@user/models/user'
 
-export const save = (user: User): Either<User, String> => {
-  throw new Error('unimplemented')
+const prisma = new PrismaClient()
+
+const save = async (user: User): Promise<User> => {
+  const _user = await prisma.user.create({ data: user })
+
+  return _user
 }
 
-export const findById = (id: string): Either<User, String> => {
-  throw new Error('unimplemented')
+const findById = async (id: string): Promise<User | null> => {
+  const user = await prisma.user.findUnique({ where: { id } })
+
+  return user
 }
 
-export const findByUsername = (id: string): Either<User, String> => {
-  throw new Error('unimplemented')
+const findByUsername = async (username: string): Promise<User | null> => {
+  const user = await prisma.user.findUnique({ where: { username } })
+
+  return user
 }
 
-export const findByEmail = (id: string): Either<User, String> => {
-  throw new Error('unimplemented')
+const findByEmail = async (email: string): Promise<User | null> => {
+  const user = await prisma.user.findUnique({ where: { email } })
+
+  return user
 }
+
+export default { save, findById, findByUsername, findByEmail }
