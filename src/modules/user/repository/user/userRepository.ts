@@ -1,13 +1,8 @@
-import { PrismaClient } from '@prisma/client'
-
 import { User } from '@user/models/user'
-
-const prisma = new PrismaClient()
+import prisma from 'database'
 
 const save = async (user: User): Promise<User> => {
-  const _user = await prisma.user.create({ data: user })
-
-  return _user
+  return await prisma.user.create({ data: user })
 }
 
 const findById = async (id: string): Promise<User | null> => {
