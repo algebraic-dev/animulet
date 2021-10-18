@@ -9,32 +9,53 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+
     services:
       postgres:
         image: postgres
         env:
           POSTGRES_PASSWORD: postgres
+          POSTGRES_USER: postgres
+          POSTGRES_DB: db_test
         options: >-
           --health-cmd pg_isready
-          --health-interval 10s
+          --health-interval 5s
           --health-timeout 5s
           --health-retries 5
+        ports:
+          - 5432:5432
+
     strategy:
       matrix:
         node-version: [14.x, 16.x]
+
+    env:    
+      DATABASE_URL: postgresql://postgres:postgres@localhost:5432/db_test?schema=public
+
     steps:
       - uses: actions/checkout@v2
+
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
-      - uses: actions/cache@v2
+
+      - name: Caches node_modules
+        uses: actions/cache@v2
         with:
           path: '**/node_modules'
           key: ${{ runner.os }}-${{ matrix.node-version }}-modules-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-${{ matrix.node-version }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-${{ matrix.node-version }}-build-
+            ${{ runner.os }}-${{ matrix.node-version }}-
+
       - name: Install packages
         run: yarn install --frozen-lockfile
+  
       - run: yarn build
+      - run: rm -rf dist
+
+      - run: yarn prisma migrate deploy
+
       - run: yarn test
-        env:    
-          DATABASE_URL: postgresql://postgres:postgres@localhost:5432/postgres?schema=public
