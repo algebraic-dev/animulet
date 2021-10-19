@@ -1,12 +1,30 @@
 import request from 'supertest'
-import app from '../../src/server'
-import prisma from '../../src/database'
+import app from 'server'
+import prisma from 'database'
+
+import { hash } from 'argon2'
 
 const server = app()
 
+beforeAll(async () => {
+  prisma.user.create({
+    data: {
+      email: 'tests@hotmail.com',
+      password: await hash('12345678'),
+      username: 'tests'
+    }
+  })
+})
+
 describe('GET /login', () => {
-  it('Responds with 500', (done) => {
-    request(server).post('/auth/login').expect(500, done)
+  it('Responds with 202', (done) => {
+    request(server)
+      .post('/auth/login')
+      .send({
+        login: 'tests@hotmail.com',
+        password: '12345678'
+      })
+      .expect(202, done)
   })
 })
 
