@@ -1,21 +1,24 @@
+import { validateRegisterDTO } from '@user/cases/register/registerDTO'
 import { Response, Request } from 'express'
 import { isLeft } from 'fp-ts/lib/Either'
-
-import { register as _register } from '@user/cases/register/registerCase'
-import { User } from '@user/models/user'
+import { register as registerCase } from '@user/cases/register/registerCase'
 
 export const login = (request: Request, response: Response) => {
   throw new Error('Unimplemented')
 }
 
 export const register = async (request: Request, response: Response) => {
-  const { username, email, password }: User = request.body
+  const dto = await validateRegisterDTO(request.body)
 
-  const user = await _register({ username, email, password })
+  if (isLeft(dto)) {
+    return response.status(400).json(dto.left)
+  }
+
+  const user = await registerCase(dto.right)
 
   if (isLeft(user)) {
-    response.status(400).json({ error: user.left.kind })
-  } else {
-    response.status(201).json(user.right)
+    return response.status(400).json(user.left)
   }
+
+  response.status(201).json({})
 }

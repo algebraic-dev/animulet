@@ -4,12 +4,13 @@ import { User } from '@user/models/user'
 import { RegisterError } from './registerError'
 import userRepository from '@user/repository/user/userRepository'
 import argon2 from 'argon2'
+import { RegisterDTO } from './registerDTO'
 
 export const register = async ({
   username,
   email,
   password
-}: User): Promise<Either<RegisterError, User>> => {
+}: RegisterDTO): Promise<Either<RegisterError, User>> => {
   const verifyEmail = await userRepository.findByEmail(email)
   const verifyUsername = await userRepository.findByUsername(username)
 

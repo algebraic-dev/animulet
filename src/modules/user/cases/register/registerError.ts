@@ -6,4 +6,9 @@ export interface UsernameAlreadyUsed {
   kind: 'UsernameAlreadyUsed'
 }
 
-export type RegisterError = EmailAlreadyUsed | UsernameAlreadyUsed
+export interface RegisterValidationError {
+  kind: 'RegisterValidationError',
+  data: string
+}
+
+export type RegisterError = EmailAlreadyUsed | UsernameAlreadyUsed | RegisterValidationError
