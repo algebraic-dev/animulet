@@ -18,8 +18,7 @@ export const login = async (request: Request, response: Response) => {
   const res = await loginCase(dto.right)
 
   if (isLeft(res)) {
-    console.log(res.left)
-    return response.status(400).json(res.left)
+    return response.status(403).json(res.left)
   }
 
   const privateKey: string = process.env.JWT_PRIVATE_KEY || ''

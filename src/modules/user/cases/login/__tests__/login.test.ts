@@ -13,10 +13,11 @@ beforeAll(async () =>
       password: await hash('123456789'),
       username: 'tests'
     }
-  }))
+  })
+)
 
 describe('GET /login', () => {
-  it('Responds with 202', (done) => {
+  it('Responds with login ok', (done) => {
     request(server)
       .post('/auth/login')
       .send({
@@ -24,6 +25,16 @@ describe('GET /login', () => {
         password: '123456789'
       })
       .expect(202, done)
+  })
+
+  it('Responds with wrong password', (done) => {
+    request(server)
+      .post('/auth/login')
+      .send({
+        login: 'tests@hotmail.com',
+        password: '123456781'
+      })
+      .expect(403, done)
   })
 })
 
