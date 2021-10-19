@@ -31,7 +31,8 @@ jobs:
 
     env:    
       DATABASE_URL: postgresql://postgres:postgres@localhost:5432/db_test?schema=public
-
+      JWT_PRIVATE_KEY: not_a_cool_key_but_its_only_for_test
+      
     steps:
       - uses: actions/checkout@v2
 

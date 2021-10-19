@@ -6,15 +6,14 @@ import { hash } from 'argon2'
 
 const server = app()
 
-beforeAll(async () => {
+beforeAll(async () =>
   prisma.user.create({
     data: {
       email: 'tests@hotmail.com',
-      password: await hash('12345678'),
+      password: await hash('123456789'),
       username: 'tests'
     }
-  })
-})
+  }))
 
 describe('GET /login', () => {
   it('Responds with 202', (done) => {
@@ -22,7 +21,7 @@ describe('GET /login', () => {
       .post('/auth/login')
       .send({
         login: 'tests@hotmail.com',
-        password: '12345678'
+        password: '123456789'
       })
       .expect(202, done)
   })
