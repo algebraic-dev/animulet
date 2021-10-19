@@ -11,8 +11,8 @@ describe('POST /register', () => {
       .set('Accept', 'application/json')
       .send({
         username: 'jrtoruhn',
-        email: 'johnrdtrruoe@domain.com',
-        password: 'jorthrundoe123'
+        password: 'johndue123',
+        email: 'johnrdtrruoe@domain.com'
       })
       .type('json')
       .expect(201, done)
