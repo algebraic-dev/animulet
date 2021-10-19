@@ -16,8 +16,11 @@
     "eslint-plugin-jest": "^24.5.0",
     "express": "^4.17.1",
     "fp-ts": "^2.11.4",
+    "io-ts": "^2.2.16",
     "jest": "^27.2.4",
-    "winston": "^3.3.3"
+    "jsonwebtoken": "^8.5.1",
+    "winston": "^3.3.3",
+    "yup": "^0.32.11"
   },
   "devDependencies": {
     "@types/express": "^4.17.13",
