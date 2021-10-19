@@ -12,5 +12,6 @@
   },
   "plugins": ["@typescript-eslint", "prettier", "jest" ],
   "rules": {
+    "no-console": "error"
   }
 }
